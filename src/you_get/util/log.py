@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 
-from ..version import __name__
+# This module is implemented with Python 2 compatibility.
 
-import os, sys, subprocess
+from .. import __name__ as library_name
+
+import os
+import subprocess
+import sys
 
 # Is terminal ANSI/VT100 compatible
 if os.getenv('TERM') in (
@@ -86,9 +90,9 @@ def printlog(message, color=None, ostream=sys.stderr):
     """Prints a log message to stream.
     """
     if has_colors and color in colors:
-        ostream.write("{0}{1}: {2}{3}\n".format(colors[color], __name__, message, colors['reset']))
+        ostream.write("{0}{1}: {2}{3}\n".format(colors[color], library_name, message, colors['reset']))
     else:
-        ostream.write("{0}: {1}\n".format(__name__, message))
+        ostream.write("{0}: {1}\n".format(library_name, message))
 
 def i(message, ostream=sys.stderr):
     """Sends an info log message.
@@ -111,16 +115,20 @@ def w(message, ostream=sys.stderr):
              'yellow' if has_colors else None,
              ostream=ostream)
 
-def e(message, ostream=sys.stderr):
+def e(message, ostream=sys.stderr, exit_code=None):
     """Sends an error log message.
     """
     printlog(message,
              'bold-yellow' if has_colors else None,
              ostream=ostream)
+    if exit_code is not None:
+        exit(exit_code)
 
-def wtf(message, ostream=sys.stderr):
+def wtf(message, ostream=sys.stderr, exit_code=-1):
     """What a Terrible Failure.
     """
     printlog(message,
              'bold-red' if has_colors else None,
              ostream=ostream)
+    if exit_code is not None:
+        exit(exit_code)
