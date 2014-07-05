@@ -8,4 +8,5 @@ def console_main(*args, **conf):
         url = arg
         #extraction = Extractor(url, **conf)
         from you_get import site
-        site.youku.extractor().download_by_url(url, **conf)
+        print(site.names)
+        #site.youku.extractor().download_by_url(url, **conf)

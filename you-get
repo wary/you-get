@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 
-__srcdir__ = 'src/'
+_srcdir = 'src/'
 
 import os
 import sys
-__path__ = os.path.dirname(os.path.realpath(__file__))
-sys.path.insert(1, os.path.join(__path__, __srcdir__))
+_filepath = os.path.dirname(os.path.realpath(__file__))
+sys.path.insert(1, os.path.join(_filepath, _srcdir))
 
 if sys.version_info[0] == 3:
     import you_get
     if __name__ == '__main__':
-        you_get.main(repo_path=__path__)
+        you_get.main(repo_path=_filepath)
 else:
     from you_get.util import log
     log.wtf("""

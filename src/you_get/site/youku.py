@@ -1,7 +1,7 @@
 from you_get import VideoExtractor
 
-from ..common import match1, get_html, re
-import json
+from ..common import match1, get_html
+import json, re
 
 class Youku(VideoExtractor):
     name = "优酷 (Youku)"
