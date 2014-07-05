@@ -33,7 +33,7 @@ def main(**kwargs):
     except:
         __commit__ = None
 
-    # Unrecognized option.
+    # Get options and arguments.
     try:
         opts, args = getopt.getopt(sys.argv[1:], __short_options__, __options__)
     except getopt.GetoptError as e:
@@ -41,43 +41,45 @@ def main(**kwargs):
     [FATAL] {}.
     Try 'you-get --help' for more options.""".format(e))
 
-    # Parse options.
-    conf = {}
-    for opt, arg in opts:
-        if opt in ('-h', '--help'):
-            # Display help.
-            print(__help__)
+    if not opts and not args:
+        # Enter GUI mode.
+        from .gui import gui_main
+        gui_main()
+    else:
+        conf = {}
+        for opt, arg in opts:
+            if opt in ('-h', '--help'):
+                # Display help.
+                print(__help__)
 
-        elif opt in ('-V', '--version'):
-            # Display version.
-            print("version:  {}".format(__version__))
-            if __commit__ is not None:
-                print("""branch:   {}\ncommit:   {}""".format(*__commit__))
-            else:
-                print("""branch:   {}\ncommit:   {}""".format("(UNKNOWN)", "(UNKNOWN)"))
+            elif opt in ('-V', '--version'):
+                # Display version.
+                print("version:  {}".format(__version__))
+                if __commit__ is not None:
+                    print("""branch:   {}\ncommit:   {}""".format(*__commit__))
+                else:
+                    print("""branch:   {}\ncommit:   {}""".format("(UNKNOWN)", "(UNKNOWN)"))
 
-            print("platform: {}".format(platform.platform()))
-            print("python:   {}".format(sys.version))
+                print("platform: {}".format(platform.platform()))
+                print("python:   {}".format(sys.version))
 
-        elif opt in ('-g', '--gui'):
-            # Run using GUI.
-            conf['gui'] = True
+            elif opt in ('-g', '--gui'):
+                # Run using GUI.
+                conf['gui'] = True
 
-        elif opt in ('-f', '--force'):
-            # Force download.
-            conf['force'] = True
+            elif opt in ('-f', '--force'):
+                # Force download.
+                conf['force'] = True
 
-        elif opt in ('-l', '--playlist', '--playlists'):
-            # Download playlist whenever possible.
-            conf['playlist'] = True
+            elif opt in ('-l', '--playlist', '--playlists'):
+                # Download playlist whenever possible.
+                conf['playlist'] = True
 
-    #if not args:
-    #    from .gui import gui_main
-    #    gui_main(**conf)
-
-    #from .common import script_main
-    #from .extractor import any_download, any_download_playlist
-    #script_main('you-get', any_download, any_download_playlist)
-
-if __name__ == "__main__":
-    main()
+        if 'gui' in conf and conf['gui']:
+            # Enter GUI mode.
+            from .gui import gui_main
+            gui_main(*args, **conf)
+        else:
+            # Enter console mode.
+            from .console import console_main
+            console_main(*args, **conf)

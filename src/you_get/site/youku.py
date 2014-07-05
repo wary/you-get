@@ -1,7 +1,7 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+from you_get import VideoExtractor
 
-from ..common import *
+from ..common import match1, get_html, re
+import json
 
 class Youku(VideoExtractor):
     name = "优酷 (Youku)"
@@ -81,9 +81,4 @@ class Youku(VideoExtractor):
 
         self.streams[stream_id]['src'] = __class__.parse_m3u8(m3u8)
 
-site = Youku()
-download = site.download_by_url
-download_playlist = playlist_not_supported('youku')
-
-youku_download_by_vid = site.download_by_vid
-# Used by: acfun.py bilibili.py miomio.py tudou.py
+extractor = Youku
