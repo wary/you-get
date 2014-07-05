@@ -804,18 +804,8 @@ def download_main(download, download_playlist, urls, playlist, **kwargs):
         else:
             download(url, **kwargs)
 
-def get_version():
-    try:
-        import subprocess
-        real_dir = os.path.dirname(os.path.realpath(__file__))
-        git_hash = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD'], cwd=real_dir, stderr=subprocess.DEVNULL).decode('utf-8').strip()
-        assert git_hash
-        return '%s-%s' % (__version__, git_hash)
-    except:
-        return __version__
-
 def script_main(script_name, download, download_playlist = None):
-    version = 'You-Get %s, a video downloader.' % get_version()
+    version = 'You-Get %s, a video downloader.' % __version__
     help = 'Usage: %s [OPTION]... [URL]...\n' % script_name
     help += '''\nStartup options:
     -V | --version                           Display the version and exit.
