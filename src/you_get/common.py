@@ -11,7 +11,9 @@ import platform
 import threading
 
 from .version import __version__
-#from .util import log, sogou_proxy_server, get_filename, unescape_html
+from .util import log
+from .util.strings import get_filename, unescape_html
+#from .util import sogou_proxy_server
 
 dry_run = False
 force = False
@@ -811,10 +813,6 @@ def get_version():
         return '%s-%s' % (__version__, git_hash)
     except:
         return __version__
-
-def main():
-    from . import extractor
-    script_main('you-get', extractor.any_download, extractor.any_download_playlist)
 
 def script_main(script_name, download, download_playlist = None):
     version = 'You-Get %s, a video downloader.' % get_version()
