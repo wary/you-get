@@ -3,10 +3,8 @@
 /MANIFEST
 *.egg-info/
 *.py[cod]
-
 _*/
 *_
-
 *.bak
 *.download
 *.cmt.*
@@ -23,7 +21,7 @@ _*/
 *.webm
 README.html
 README.rst
-
 *.DS_Store
 *.swp
 *~
+.idea
